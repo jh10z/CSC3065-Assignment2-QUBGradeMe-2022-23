@@ -1,0 +1,14 @@
+stages:
+  - registry
+
+registry:
+  stage: registry
+  image: docker
+  services:
+    - name: docker:dind
+      command: [ "--insecure-registry=registry.hal.davecutting.uk"]
+  script:
+  - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+  - docker build -t $CI_REGISTRY_IMAGE .
+  - docker push $CI_REGISTRY_IMAGE
+  tags: [dockerindocker]

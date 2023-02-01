@@ -1,0 +1,52 @@
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\appsettings.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\classifygrade.exe
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\classifygrade.deps.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\classifygrade.runtimeconfig.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\classifygrade.dll
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\classifygrade.pdb
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.csproj.AssemblyReference.cache
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.AssemblyInfoInputs.cache
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.AssemblyInfo.cs
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.csproj.CoreCompileInputs.cache
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets\msbuild.classifygrade.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets\msbuild.build.classifygrade.props
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.classifygrade.props
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.classifygrade.props
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\scopedcss\bundle\classifygrade.styles.css
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.dll
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\refint\classifygrade.dll
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.pdb
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.genruntimeconfig.cache
+C:\Users\University\Desktop\Cloud\Project\3 new features\qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\ref\classifygrade.dll
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\appsettings.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\classifygrade.exe
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\classifygrade.deps.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\classifygrade.runtimeconfig.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\classifygrade.dll
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\bin\Debug\net6.0\classifygrade.pdb
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.csproj.AssemblyReference.cache
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.AssemblyInfoInputs.cache
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.AssemblyInfo.cs
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.csproj.CoreCompileInputs.cache
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets\msbuild.classifygrade.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets\msbuild.build.classifygrade.props
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.classifygrade.props
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.classifygrade.props
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\scopedcss\bundle\classifygrade.styles.css
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.dll
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\refint\classifygrade.dll
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.pdb
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\classifygrade.genruntimeconfig.cache
+C:\Users\University\Desktop\Cloud\Project\3 new features\(C#) qubgrademe-classifygrade\classifygrade\obj\Debug\net6.0\ref\classifygrade.dll

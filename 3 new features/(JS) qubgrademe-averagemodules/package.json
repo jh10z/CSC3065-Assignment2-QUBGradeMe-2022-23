@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "axios": "^1.2.0",
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mocha": "^10.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.3.1"
+  },
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "unit": "mocha testing/unit-tests.js --exit",
+    "integration": "mocha testing/integration-tests.js --exit"
+  }
+}

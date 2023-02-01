@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>QUBGrader</title>
+<script type="text/javascript">
+let proxies = [
+    "http://tsfdsfsdf.com",
+    "http://d2d.com",
+    "http://40259391.proxy.qpc.hal.davecutting.uk",
+    "http://edee.com"
+];
+
+let serviceProxyURL = proxies[0];
+//let maxminURL = serviceProxyURL + "/service/MaxMin"
+//let sortedModulesURL = serviceProxyURL + "/service/SortModules";
+//let totalMarksURL = serviceProxyURL + "/service/TotalMarks";
+//let classifyGradeURL = serviceProxyURL + "/service/ClassifyGrade";
+//let averageModulesURL = serviceProxyURL + "/service/AverageMark";
+//let classifyModulesURL = serviceProxyURL + "/service/ClassifyModules";
+
+//No Frontend Service Failure
+let statefulSavingURL = serviceProxyURL + "/service/StatefulSaving";
+let monitoringURL = serviceProxyURL + "/monitoring";
+
+function displayTotal(error, total_marks)
+{
+    let elem = document.getElementById("output-text")
+    if(error) {
+        elem.style.color = 'red'
+        elem.value = "TotalMarks Service: \n" + total_marks;
+    }
+    else {
+        elem.style.color = 'white'
+        elem.value = "TotalMarks Service: \n" + 'Total marks = ' + total_marks;
+    }
+}
+
+function displayMaxMin(error, max_module, min_module)
+{
+    let elem = document.getElementById("output-text")
+    if(error) {
+        elem.style.color = 'red'
+        elem.value = "MaxMin Service: \n" + max_module;
+    }
+    else {
+        elem.style.color = 'white'
+        elem.value = "MaxMin Service: \n" + "Highest scoring module = " + max_module + "\nLowest scoring module = " + min_module;
+    }
+}
+
+function displaySortedModules(error, sorted_modules)
+{
+    elem = document.getElementById("output-text")
+    error ? elem.style.color = 'red' : elem.style.color = 'white'
+    elem.value = "SortedModules Service: \n" + sorted_modules;
+}
+
+function displayGrades(error, classified_grades)
+{
+    elem = document.getElementById("output-text")
+    error ? elem.style.color = 'red' : elem.style.color = 'white'
+    elem.value = "ClassifyGrade Service: \n" + classified_grades;
+}
+
+function displayModules(error, classified_grades)
+{
+    elem = document.getElementById("output-text")
+    error ? elem.style.color = 'red' : elem.style.color = 'white'
+    elem.value = "ClassifyModules Service: \n" + classified_grades;
+}
+
+function displayAverage(error, average)
+{
+    let elem = document.getElementById("output-text")
+    if(error) {
+        elem.style.color = 'red'
+        elem.value = "AverageModules Service: \n" + average;
+    }
+    else {
+        elem.style.color = 'white'
+        elem.value = "AverageModules Service: \n" + "Average score from modules entered = " + average;
+    }
+}
+
+function displayProfile(error, message)
+{
+    elem = document.getElementById("output-text")
+    error ? elem.style.color = 'red' : elem.style.color = 'white'
+    elem.value = "Profile Save Service: \n" + message;
+}
+
+function clearText()
+{
+    document.getElementById('module_1').value = '';
+    document.getElementById('module_2').value = '';
+    document.getElementById('module_3').value = '';
+    document.getElementById('module_4').value = '';
+    document.getElementById('module_5').value = '';
+
+    document.getElementById('mark_1').value = '';
+    document.getElementById('mark_2').value = '';
+    document.getElementById('mark_3').value = '';
+    document.getElementById('mark_4').value = '';
+    document.getElementById('mark_5').value = '';
+
+    document.getElementById('output-text').value = '';
+
+}
+
+function clearOutput()
+{
+    document.getElementById('output-text').value = '';
+}
+
+function getMaxMin()
+{
+    serviceProxyURL = proxies[0];
+
+  let module_1 = document.getElementById('module_1').value || "Module 1"
+  let module_2 = document.getElementById('module_2').value || "Module 2"
+  let module_3 = document.getElementById('module_3').value || "Module 3"
+  let module_4 = document.getElementById('module_4').value || "Module 4"
+  let module_5 = document.getElementById('module_5').value || "Module 5"
+
+  let mark_1 = document.getElementById('mark_1').value
+  let mark_2 = document.getElementById('mark_2').value
+  let mark_3 = document.getElementById('mark_3').value
+  let mark_4 = document.getElementById('mark_4').value
+  let mark_5 = document.getElementById('mark_5').value
+
+  let retry = 0;
+  let url = "?module_1=" + module_1 + "&mark_1=" + mark_1 + "&module_2=" + module_2 + "&mark_2=" + mark_2
+  + "&module_3=" + module_3 + "&mark_3=" + mark_3 + "&module_4=" + module_4 + "&mark_4=" + mark_4
+  + "&module_5=" + module_5 + "&mark_5=" + mark_5;
+
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+
+      if (this.readyState == 4 && this.status == 200) {
+          var j = JSON.parse(this.response);
+          let max_module = j.max_module;
+          let min_module = j.min_module;
+          displayMaxMin(false, max_module, min_module);
+      }
+      else if (this.readyState == 4 && this.status == 400) {
+          var j = JSON.parse(this.response);
+          displayMaxMin(true, j["message"], "");
+      }
+  };
+    xhttp.onerror = function (event) {
+        retry++;
+        if(retry < proxies.length) {
+            serviceProxyURL = proxies[retry];
+            sendMaxMin(xhttp, url);
+        }
+        else if(retry == proxies.length - 1) {
+            document.getElementById('output-text').value = "No Connection to Any Proxy URLs could be Established."
+            document.getElementById('output-text').style.color = 'red';
+        }
+    }
+    sendMaxMin(xhttp, url);
+    return;
+}
+
+function sendMaxMin(xhttp, url) {
+    xhttp.open("GET", serviceProxyURL + "/service/MaxMin" + url);
+    xhttp.send();
+}
+
+function getSortedModules()
+{
+    serviceProxyURL = proxies[0];
+
+  let module_1 = document.getElementById('module_1').value || "Module 1"
+  let module_2 = document.getElementById('module_2').value || "Module 2"
+  let module_3 = document.getElementById('module_3').value || "Module 3"
+  let module_4 = document.getElementById('module_4').value || "Module 4"
+  let module_5 = document.getElementById('module_5').value || "Module 5"
+
+  let mark_1 = document.getElementById('mark_1').value
+  let mark_2 = document.getElementById('mark_2').value
+  let mark_3 = document.getElementById('mark_3').value
+  let mark_4 = document.getElementById('mark_4').value
+  let mark_5 = document.getElementById('mark_5').value
+
+  let retry = 0;
+  let url = "?module_1=" + module_1 + "&mark_1=" + mark_1 + "&module_2=" + module_2 + "&mark_2=" + mark_2
+  + "&module_3=" + module_3 + "&mark_3=" + mark_3 + "&module_4=" + module_4 + "&mark_4=" + mark_4
+  + "&module_5=" + module_5 + "&mark_5=" + mark_5;
+
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var j = JSON.parse(this.response);
+      let sorted_modules_returned = j.sorted_modules;
+      let sorted_modules = '';
+      for (let i = 0; i < sorted_modules_returned.length; i++) {
+        sorted_modules += sorted_modules_returned[i]['module'] + ' - ' + sorted_modules_returned[i]['marks'] + '\r\n';
+      }
+      displaySortedModules(false, sorted_modules);
+    }
+    else if (this.readyState == 4 && this.status == 400) {
+        var j = JSON.parse(this.response);
+        displaySortedModules(true, j["message"]);
+    }
+  };
+    xhttp.onerror = function (event) {
+        retry++;
+        if(retry < proxies.length) {
+            serviceProxyURL = proxies[retry];
+            sendSortedModules(xhttp, url);
+        }
+        else if(retry == proxies.length - 1) {
+            document.getElementById('output-text').value = "No Connection to Any Proxy URLs could be Established."
+            document.getElementById('output-text').style.color = 'red';
+        }
+    }
+    sendSortedModules(xhttp, url);
+    return;
+}
+
+function sendSortedModules(xhttp, url) {
+    xhttp.open("GET", serviceProxyURL + "/service/SortModules" + url);
+    xhttp.send();
+}
+
+function getTotal()
+{
+    serviceProxyURL = proxies[0];
+
+  let module_1 = document.getElementById('module_1').value || "Module 1"
+  let module_2 = document.getElementById('module_2').value || "Module 2"
+  let module_3 = document.getElementById('module_3').value || "Module 3"
+  let module_4 = document.getElementById('module_4').value || "Module 4"
+  let module_5 = document.getElementById('module_5').value || "Module 5"
+
+  let mark_1 = document.getElementById('mark_1').value
+  let mark_2 = document.getElementById('mark_2').value
+  let mark_3 = document.getElementById('mark_3').value
+  let mark_4 = document.getElementById('mark_4').value
+  let mark_5 = document.getElementById('mark_5').value
+
+  let retry = 0;
+  let json = {mark_1: mark_1, mark_2: mark_2, mark_3: mark_3, mark_4: mark_4, mark_5: mark_5};
+
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          var j = JSON.parse(this.response);
+          let total_marks = j.total_marks;
+          displayTotal(false, total_marks);
+      }
+      else if (this.readyState == 4 && this.status == 400) {
+          displayTotal(true, this.response);
+      }
+
+  };
+  xhttp.onerror = function (event) {
+        retry++;
+        if(retry < proxies.length) {
+            serviceProxyURL = proxies[retry];
+            sendTotal(xhttp, json);
+        }
+        else if(retry == proxies.length - 1) {
+            document.getElementById('output-text').value = "No Connection to Any Proxy URLs could be Established."
+            document.getElementById('output-text').style.color = 'red';
+        }
+    }
+    sendTotal(xhttp, json);
+  return;
+}
+
+function sendTotal(xhttp, json) {
+    xhttp.open("POST", serviceProxyURL + "/service/TotalMarks");
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(json));
+}
+
+function getGrade()
+{
+    serviceProxyURL = proxies[0];
+
+    let module_1 = document.getElementById('module_1').value || "Module 1"
+    let module_2 = document.getElementById('module_2').value || "Module 2"
+    let module_3 = document.getElementById('module_3').value || "Module 3"
+    let module_4 = document.getElementById('module_4').value || "Module 4"
+    let module_5 = document.getElementById('module_5').value || "Module 5"
+
+    let mark_1 = document.getElementById('mark_1').value
+    let mark_2 = document.getElementById('mark_2').value
+    let mark_3 = document.getElementById('mark_3').value
+    let mark_4 = document.getElementById('mark_4').value
+    let mark_5 = document.getElementById('mark_5').value
+
+    const modulesList = [module_1, module_2, module_3, module_4, module_5];
+    let retry = 0;
+    let json = {"Module1": mark_1, "Module2": mark_2, "Module3": mark_3, "Module4": mark_4, "Module5": mark_5};
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            clearOutput();
+            var j = JSON.parse(this.response);
+            displayGrades(false, j["classification"]);
+        }
+        else if (this.readyState == 4 && this.status == 400) {
+            clearOutput();
+            displayGrades(true, this.response);
+        }
+    };
+
+    xhttp.onerror = function (event) {
+        retry++;
+        if(retry < proxies.length) {
+            serviceProxyURL = proxies[retry];
+            sendGrade(xhttp, json);
+        }
+        else if(retry == proxies.length - 1) {
+            document.getElementById('output-text').value = "No Connection to Any Proxy URLs could be Established."
+            document.getElementById('output-text').style.color = 'red';
+        }
+    }
+    sendGrade(xhttp, json);
+    return;
+}
+
+function sendGrade(xhttp, json) 
+{
+    xhttp.open("POST", serviceProxyURL + "/service/ClassifyGrade");
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(json));
+}
+
+function getFeature1()
+{
+    serviceProxyURL = proxies[0];
+
+    let module_1 = document.getElementById('module_1').value || "Module 1"
+    let module_2 = document.getElementById('module_2').value || "Module 2"
+    let module_3 = document.getElementById('module_3').value || "Module 3"
+    let module_4 = document.getElementById('module_4').value || "Module 4"
+    let module_5 = document.getElementById('module_5').value || "Module 5"
+
+    let mark_1 = document.getElementById('mark_1').value
+    let mark_2 = document.getElementById('mark_2').value
+    let mark_3 = document.getElementById('mark_3').value
+    let mark_4 = document.getElementById('mark_4').value
+    let mark_5 = document.getElementById('mark_5').value
+
+    const modulesList = [module_1, module_2, module_3, module_4, module_5];
+
+    let retry = 0;
+    let json = {"Module1": mark_1, "Module2": mark_2, "Module3": mark_3, "Module4": mark_4, "Module5": mark_5};
+    
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var j = JSON.parse(this.response);
+            displayAverage(false, j["average"]);
+        }
+        else if (this.readyState == 4 && this.status == 400){
+            displayAverage(true, this.response);
+        }
+    };
+    xhttp.onerror = function (event) {
+        retry++;
+        if(retry < proxies.length) {
+            serviceProxyURL = proxies[retry];
+            sendFeature1(xhttp, json);
+        }
+        else if(retry == proxies.length - 1) {
+            document.getElementById('output-text').value = "No Connection to Any Proxy URLs could be Established."
+            document.getElementById('output-text').style.color = 'red';
+        }
+    }
+    sendFeature1(xhttp, json);
+    return;
+}
+
+function sendFeature1(xhttp, json)
+{
+    xhttp.open("POST", serviceProxyURL + "/service/AverageMark");
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(json));
+}
+
+function getFeature2()
+{
+    serviceProxyURL = proxies[0];
+
+    let module_1 = document.getElementById('module_1').value || "Module 1"
+    let module_2 = document.getElementById('module_2').value || "Module 2"
+    let module_3 = document.getElementById('module_3').value || "Module 3"
+    let module_4 = document.getElementById('module_4').value || "Module 4"
+    let module_5 = document.getElementById('module_5').value || "Module 5"
+
+    let mark_1 = document.getElementById('mark_1').value
+    let mark_2 = document.getElementById('mark_2').value
+    let mark_3 = document.getElementById('mark_3').value
+    let mark_4 = document.getElementById('mark_4').value
+    let mark_5 = document.getElementById('mark_5').value
+
+    const modulesList = [module_1, module_2, module_3, module_4, module_5];
+
+    let retry = 0;
+    let json = {"m1_grade": mark_1, "m2_grade": mark_2, "m3_grade": mark_3, "m4_grade": mark_4, "m5_grade": mark_5};
+    
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var j = JSON.parse(this.response);
+            let resultStr = "";
+            let count = 0;
+            for (const key in j) {
+                if(j.hasOwnProperty(key)) {
+                    if(j[key] != null && j[key] != "") {
+                        resultStr += modulesList[count] + " - " + j[key] + '\r\n';
+                    }
+                }
+                count++;
+            }
+            displayModules(false, resultStr);
+        }
+        else if ((this.readyState == 4 && this.status == 400)) {
+            displayModules(true, this.response);
+        }
+    }
+    xhttp.onerror = function (event) {
+        retry++;
+        if(retry < proxies.length) {
+            serviceProxyURL = proxies[retry];
+            sendFeature2(xhttp, json);
+        }
+        else if(retry == proxies.length - 1) {
+            document.getElementById('output-text').value = "No Connection to Any Proxy URLs could be Established."
+            document.getElementById('output-text').style.color = 'red';
+        }
+    }
+    sendFeature2(xhttp, json);
+    return;
+}
+
+function sendFeature2(xhttp, json)
+{
+    xhttp.open("POST", serviceProxyURL + "/service/ClassifyModules");
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(json));
+}
+
+function loadProfile()
+{
+    let serviceProxyURL = "http://40259391.proxy.qpc.hal.davecutting.uk";
+    selectedProfile = document.getElementById('DropDownProfiles').selectedOptions[0].value
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var j = JSON.parse(this.response);
+            document.getElementById('module_1').value = j["name_1"]
+            document.getElementById('module_2').value = j["name_2"]
+            document.getElementById('module_3').value = j["name_3"]
+            document.getElementById('module_4').value = j["name_4"]
+            document.getElementById('module_5').value = j["name_5"]
+
+            document.getElementById('mark_1').value = j["mark_1"]
+            document.getElementById('mark_2').value = j["mark_2"]
+            document.getElementById('mark_3').value = j["mark_3"]
+            document.getElementById('mark_4').value = j["mark_4"]
+            document.getElementById('mark_5').value = j["mark_5"]
+
+            displayProfile(false, 'Profile Loaded');
+        }
+        else if ((this.readyState == 4 && this.status == 400)) {
+            displayProfile(true, this.response);
+        }
+    }
+    xhttp.open("GET", serviceProxyURL + "/service/StatefulSaving" + "?profile_name=" + selectedProfile);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send();
+    return;
+}
+
+function saveProfile()
+{
+    let serviceProxyURL = "http://40259391.proxy.qpc.hal.davecutting.uk";
+    selectedProfile = document.getElementById('DropDownProfiles').selectedOptions[0].value
+    const marksEntered = {
+        profile_name: selectedProfile,
+        name_1: document.getElementById('module_1').value,
+        name_2: document.getElementById('module_2').value,
+        name_3: document.getElementById('module_3').value,
+        name_4: document.getElementById('module_4').value,
+        name_5: document.getElementById('module_5').value,
+        mark_1: document.getElementById('mark_1').value,
+        mark_2: document.getElementById('mark_2').value,
+        mark_3: document.getElementById('mark_3').value,
+        mark_4: document.getElementById('mark_4').value,
+        mark_5: document.getElementById('mark_5').value,
+    }
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            displayProfile(false, JSON.stringify(JSON.parse(this.response), null, 1));
+        }
+        else if ((this.readyState == 4 && this.status == 400)) {
+            displayProfile(true, this.response);
+        }
+    }
+    xhttp.open("POST", serviceProxyURL + "/service/StatefulSaving");
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(marksEntered));
+    return;
+}
+
+function service() {
+    let nameElem = document.getElementById('name');
+    let ipElem = document.getElementById('ip');
+    let button = document.getElementById('proxybutton');
+    if(nameElem.value != "" && ipElem.value != "") {
+        button.innerHTML = "Add-Update Service";
+    } else if (nameElem.value != "" && ipElem.value == "") {
+        button.innerHTML = "Delete Service";
+    } else {
+        button.innerHTML = "List Services";
+    }
+}
+
+function serviceEvent() {
+    let serviceProxyURL = "http://40259391.proxy.qpc.hal.davecutting.uk";
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("output-text").style.color = 'white';
+            document.getElementById("output-text").value = JSON.stringify(JSON.parse(this.response), null, 1);
+        }
+        else if (this.readyState == 4 && this.status == 400) {
+            document.getElementById("output-text").style.color = 'red';
+            document.getElementById("output-text").value = this.response;
+        }
+    };
+
+    if(document.getElementById('proxybutton').innerHTML == "List Services") {
+        xhttp.open("GET", serviceProxyURL + "/admin/save");
+        xhttp.send();
+    }
+    else if(document.getElementById('proxybutton').innerHTML == "Delete Service") {
+        xhttp.open("GET", serviceProxyURL + "/admin/delete?selected=" + document.getElementById('name').value);
+        xhttp.send();
+    }
+    else if(document.getElementById('proxybutton').innerHTML == "Add-Update Service") {
+        xhttp.open("GET", serviceProxyURL + "/admin/save?" + document.getElementById('name').value + "=" + document.getElementById('ip').value);
+        xhttp.send();
+    }
+}
+</script>
+
+<style type="text/css">
+body  {
+    font-size: 150%;
+    font-family: monospace;
+}
+
+#logo
+{
+    font-family: Calibri, sans-serif;
+    font-weight: lighter;
+    color: #505050;
+    margin: 0.5em;
+}
+
+#logo-2
+{
+    font-family: Calibri, sans-serif;
+    font-weight: lighter;
+    color: #505050;
+    margin: 0.5em;
+}
+
+#qga
+{
+    text-align: center;
+    margin-top: 1em;
+}
+
+.display-module {
+    font-size: 90%;
+    color: black;
+    background-color: white;
+    padding: 0.2em;
+    margin: 0.2em;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    width: 480px;
+
+}
+
+.display-mark{
+    font-size: 90%;
+    color: black;
+    background-color: white;
+    padding: 0.2em;
+    margin: 0.2em;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    width: 90px;
+
+}
+
+.display-output {
+    font-size: 90%;
+    color: white;
+    background-color: black;
+    padding: 0.2em;
+    margin: 0.2em;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    width: 600px;
+
+}
+
+.qgabutton-active {
+    background-color: green;
+    color: white;
+    padding: 0px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    height: 40px;
+    width: 296px;
+}
+
+/* .qgabutton-inactive {
+    background-color: gray;
+    color: white;
+    padding: 0px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    height: 40px;
+    width: 400px;
+} */
+
+.qgabutton-clear {
+    background-color: red;
+    color: white;
+    padding: 0px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    height: 40px;
+    width: 296px;
+}
+
+#DropDownProfiles {
+    font-size: 90%;
+    color: black;
+    background-color: white;
+    padding: 0.2em;
+    margin: 0.2em;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    width: 300px;
+}
+
+#FunctionPanel {
+    display: flex;
+    width: 600px;
+    margin: auto;
+    overflow: hidden;
+    margin-bottom: 10;
+}
+
+.Panel {
+    flex: 1;
+}
+
+#StatefulButton {
+    background-color: purple;
+}
+
+#profile-button {
+    background-color: grey;
+    color: white;
+    padding: 0px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    height: 30px;
+    width: 200px;
+}
+
+#servicestatus {
+    width: 600px;
+    margin: auto;
+    margin-top: 20px;
+    overflow: hidden;
+    border-style: dashed;
+    border-color: black;
+    border-width: 3px;
+    text-align: center;
+}
+
+#proxybutton {
+    background-color:orange;
+}
+
+#save {
+    background-color: darkcyan;
+}
+
+#delete {
+    background-color: palevioletred;
+}
+
+#referesh {
+    background-color:green;
+}
+
+#subtext {
+    font-family: Calibri, sans-serif;
+    font-weight: lighter;
+    color: #505050;
+    margin: auto;
+    font-size: medium;
+    margin-top: 0;
+}
+
+.sub {
+    width: 500px;
+}
+</style>
+
+</head>
+<body>
+<div id="qga">
+    <div id="logo">
+        QUB GradeMe App
+    </div>
+    <div>
+        <select name="Profiles" id="DropDownProfiles">
+            <option value="profile_1">Profile 1</option>
+            <option value="profile_2">Profile 2</option>
+            <option value="profile_3">Profile 3</option>
+            <option value="profile_4">Profile 4</option>
+          </select>
+          <button class="qgabutton-active" id="profile-button" onclick="loadProfile();">Load Profile</button>
+    </div>
+    <div>
+        <input class="display-module" type="text" id="module_1" name="module_1" placeholder="Module 1">
+        <input class="display-mark"  type="text" id="mark_1" name="mark_1" placeholder="Mark 1"></br>
+        <input class="display-module" type="text" id="module_2" name="module_2" placeholder="Module 2">
+        <input class="display-mark"  type="text" id="mark_2" name="mark_2" placeholder="Mark 2"></br>
+        <input class="display-module" type="text" id="module_3" name="module_3" placeholder="Module 3">
+        <input class="display-mark"  type="text" id="mark_3" name="mark_3" placeholder="Mark 3"></br>
+        <input class="display-module" type="text" id="module_4" name="module_4" placeholder="Module 4">
+        <input class="display-mark"  type="text" id="mark_4" name="mark_4" placeholder="Mark 4"></br>
+        <input class="display-module" type="text" id="module_5" name="module_5" placeholder="Module 5">
+        <input class="display-mark"  type="text" id="mark_5" name="mark_5" placeholder="Mark 5">
+    </div>
+    <div>
+        <textarea class="display-output" id="output-text" rows="5" cols="35" readonly=1 placeholder="Results here..." value="">
+        </textarea>
+    </div>
+    <div id="FunctionPanel">
+        <div class="Panel">
+            <div>
+                <button id="StatefulButton" class="qgabutton-active" onclick="saveProfile();">Save Current State to Profile</button>
+            </div>
+            <div>
+                <button class="qgabutton-active" onclick="getMaxMin();">Highest & Lowest Scoring Modules</button>
+            </div>
+            <div>
+                <button class="qgabutton-active" onclick="getSortedModules();">Sort Modules</button>
+            </div>
+            <div>
+                <button class="qgabutton-active" onclick="getTotal();">Total Marks</button>
+            </div>
+        </div>
+        <div class="Panel">
+            <div>
+                <button class="qgabutton-clear" onclick="clearText();">Clear Current State</button>
+            </div>
+            <div>
+                <button class="qgabutton-active" onclick="getGrade();">Classify Grade</button>
+            </div>
+            <div>
+                <button class="qgabutton-active" onclick="getFeature1();">Average Mark of Modules</button>
+            </div>
+            <div>
+                <button class="qgabutton-active" onclick="getFeature2();">Classify Modules</button>
+            </div>
+        </div>
+    </div>
+    <div id="FunctionPanel">
+        <input class="display-mark" type="text" id="name" name="service_name" placeholder="Name" onchange="service();" onkeyup="service();" onpaste="service();" oninput="service();"">
+        <input class="display-module"  type="text" id="ip" name="service_ip" placeholder="Service IP" onchange="service();" onkeyup="service();" onpaste="service();" oninput="service();"">
+        <button class="qgabutton-active" id="proxybutton" onclick="serviceEvent();">List Services</button> 
+    </div>
+    <p class="sub" id="subtext"><b>Orange Button Functionality Changes with Input:</b> Input Name Only to Delete Service and Input Name and IP to Add New or Update Existing Service</p>
+    <div id="servicestatus">
+        <div id="logo-2"><b>Service Monitoring</b> (Checks Correctness and Records 'Online' if Matches Expected Result) </div>
+        <p id="subtext">Response Time in miliseconds and Refreshes Automatically Every 60 seconds.</p>
+        <p id="monitor">Wait for Monitoring to Boot...</p>
+        <div>
+            <button class="qgabutton-active" onclick="myTimer();">Manual Refresh</button>
+        </div>
+    </div>
+
+</div>
+</body>
+
+<script type="text/javascript">
+myTimer();
+setInterval(myTimer, 60000); //every 1 second
+
+function myTimer() {
+    let serviceProxyURL = "http://40259391.proxy.qpc.hal.davecutting.uk";
+    let elem = document.getElementById('monitor');
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            elem.innerText = this.response;
+        }    
+    };
+
+    xhttp.open("GET", serviceProxyURL + "/monitoring");
+    xhttp.send();
+}
+
+</script>
+
+</html>

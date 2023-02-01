@@ -1,0 +1,10 @@
+{
+    "MaxMin": "http://40259391.maxmin.qpc.hal.davecutting.uk",
+    "SortModules": "http://40259391.sortmodules.qpc.hal.davecutting.uk",
+    "TotalMarks": "http://40259391.totalmarks.qpc.hal.davecutting.uk",
+    "ClassifyGrade": "http://40259391.classifygrade.qpc.hal.davecutting.uk",
+    "AverageMark": "http://40259391.averagemark.qpc.hal.davecutting.uk",
+    "ClassifyModules": "http://40259391.classifymodules.qpc.hal.davecutting.uk",
+    "Monitoring": "http://40259391.monitoring.qpc.hal.davecutting.uk",
+    "StatefulSaving" : "http://40259391.statefulsaving.qpc.hal.davecutting.uk"
+}
